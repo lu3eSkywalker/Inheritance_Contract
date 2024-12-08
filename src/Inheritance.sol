@@ -6,7 +6,7 @@ contract Inheritance {
     address public owner;
     uint public creationTime;
 
-    uint public WAITING_PERIOD = 157788000; // 5 years in seconds
+    uint public WAITING_PERIOD = 2592000; // 30 days in seconds
 
     // Mapping of Inheritors
     mapping(address => bool) public inheritorMapping;
@@ -65,4 +65,11 @@ contract Inheritance {
         payable(msg.sender).transfer(amount);
     }
 
+    //Function to get the contract timer
+    function getRemainingTime() public view returns(uint) {
+    if (block.timestamp >= creationTime + WAITING_PERIOD) {
+        return 0;
+    }
+    return (creationTime + WAITING_PERIOD) - block.timestamp;
+}
 }
